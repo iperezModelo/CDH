@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío 4</title>
+</head>
+<body>
+   
+        <div class="box-wrapper">
+            <div class="box">
+                <h2>Modificar Producto</h2>
+                <form id="formProducto">
+                    <div>
+                        <input type="text" id="p_title" placeholder="Title">
+                    </div>
+                    <div>
+                        <input type="text" id="p_price" placeholder="Price">
+                    </div>
+                    <div>
+                        <input type="text" id="p_thumbnail" placeholder="Thumbnail">
+                    </div>
+                    <div>
+                        <input type="text" id="p_id" placeholder="Ingrese id">
+                    </div>
+                </form>
+                <button onclick="Prueba()">ModificarS</button>
+            </div>
+        </div>
+  
+  
+    
+    <script>
+function Prueba(){
+
+let title = document.getElementById("p_title");
+let price = document.getElementById("p_price");
+let thumbnail = document.getElementById("p_thumbnail");
+let id= document.getElementById("p_id");
+let producto = {
+    "title": title.value,
+    "price": price.value,
+    "thumbnail": thumbnail.value,
+    "id":id.value
+};
+     let num=parseInt(id.value)
+     let direc= `/api/productos/${num}`
+
+            fetch(direc, {
+                method: 'PUT', 
+                body: JSON.stringify(producto),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.json())
+                .catch(error => console.error('Error:', error)
+                )
+                .then((response) => {
+                    
+
+                   let num=parseInt(response)
+                   if(num==404){
+                    location.replace('/Error')
+                   }else{
+                    console.log('Success:', response);
+                   }
+                });
+
+
+}
+
+    </script>
+</body>
+</html>

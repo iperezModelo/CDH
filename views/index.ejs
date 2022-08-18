@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+<style>
+    form{
+        list-style-type:none;
+    transition:height .5s;
+    background-color:#0c443a;
+    padding: 10px;
+    margin:0 auto;
+    width: 195px;
+    }
+
+    input,textarea{
+        outline:none;
+        border:0;
+        padding: 25px;
+        width: 130px;
+        height: 5px;
+    }
+
+    .field{
+        border:solid 1px #ccc;
+        padding:10px;
+        width: 180px;
+        height: 170px;
+    }
+
+
+   
+    
+</style>
+</head>
+
+
+
+
+<section class="inicio">
+    <div class="content">
+            <div class="titulo">
+                <h3>BIENVENIDO!!</h3>
+            </div>
+            <div class="parrafo">
+                <p>Seleccione la opción que desea de los 
+                    botones presentados a continuacion
+                </p>
+            </div>
+   <li> <a href="/api/productos" class="btn"> Obtener Productos</a></li>
+   <li> <a href="/modificarProducto" class="btn"> Modificar Producto</a></li>
+<li> <a href="/api/productos/agregarProducto" class="btn"> Agregar Producto</a> </li>
+
+
+  <a href="#" class="btn"> Buscar por ID</a></li>
+        <form> 
+         <input type="text" id="p_id" placeholder="Ingrese ID">
+            
+        </form>
+       
+
+    </div>
+
+    </section>
+    <body>
+
+
+
+
+    <div class="bot">
+        <button class="bt" onclick= "Replace()" >Buscar Prod</button>
+
+        <script>
+            function Replace(){
+                let of = document.getElementById("p_id")
+                let tr= of.value
+                let valor= `api/productos/${tr}`
+                location.replace(valor)
+            }
+        </script>
+    </div>
+
+
+
+
+
+
+
+
+<li class="contenedor">
+    <li class="prueba">
+        <div class="mensaje">
+            <a href="#" class="btn"> Eliminar por ID</a></li>
+        </div>
+
+        <ul class="inputcaja"> 
+            <li class="inp">
+                 <form action="">
+                    <input type="text" id="p_id2" placeholder="Ingrese ID">
+                 </form>
+            </li>
+        </ul> 
+
+    </li>
+
+
+
+
+
+    <ul class="bot">
+        <button class="bt" onclick= "Eliminar()" >Eliminar Prod</button>
+
+        <script>
+            function Eliminar(){
+                let of = document.getElementById("p_id2")
+                let tr= of.value
+                let valor= `api/productos/${tr}`
+                producto={
+                    id:tr
+                }
+                fetch(valor, {
+                method: 'DELETE', 
+                body: JSON.stringify(producto),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(res => res.json())
+                .catch(error => console.error('Error:', error))
+                .then((response) => {
+                    let num=parseInt(response)
+                   if(num==404){
+                    location.replace('/Error')
+                   }else{
+                    console.log('Success:', response);
+                   }
+                });
+
+
+            }
+        </script>
+    </ul>
+
+</li>
+
+
+
+</body>
+
+
+
+</html>
+
